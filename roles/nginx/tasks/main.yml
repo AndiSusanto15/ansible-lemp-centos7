@@ -1,0 +1,76 @@
+---
+- name: Be sure nginx is installed
+  become: yes
+  yum:
+    name: nginx
+    state: installed
+
+- name: Make sure a service is running on boot
+  become: yes
+  systemd:
+    name: nginx
+    state: started 
+    enabled: yes
+
+- name: Create homedir public_html
+  file:
+    path: /home/{{ home_user }}/public_html/mysite.com
+    state: directory
+
+- name: Create directory sites-available
+  become: yes
+  file:
+    state: directory
+    path: /etc/nginx/sites-available
+
+- name: Create directory sites-enabled
+  become: yes
+  file:
+    state: directory
+    path: /etc/nginx/sites-enabled
+
+- name: backup file nginx.conf
+  become: yes
+  command: mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.orig
+
+- name: Copy nginx main configuration
+  become: yes
+  template: 
+    src: nginx.conf.j2 
+    dest: /etc/nginx/nginx.conf
+
+- name: Copy server-block
+  become: yes
+  template: 
+    src: mysite.conf.j2
+    dest: /etc/nginx/sites-available/mysite.conf
+
+- name: copy upstream conf
+  become: yes
+  template: 
+      src: upstream.conf.j2
+      dest: /etc/nginx/conf.d/upstream.conf
+
+- name: copy log-format conf
+  become: yes
+  template: 
+      src: log-format.conf.j2
+      dest: /etc/nginx/conf.d/log-format.conf
+
+- name: copy http-block-tunning conf
+  become: yes
+  template: 
+      src: http-block-tunning.conf.j2
+      dest: /etc/nginx/conf.d/http-block-tunning.conf
+
+- name: copy gzip conf
+  become: yes
+  template: 
+      src: gzip.conf.j2
+      dest: /etc/nginx/conf.d/gzip.conf
+
+- name: reload nginx after config
+  become: yes
+  systemd:
+    name: nginx
+    state: reloaded

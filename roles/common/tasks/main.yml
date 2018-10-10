@@ -1,5 +1,5 @@
 ---
-- name: Be sure common package is installed
+- name: Be sure common packages is installed
   become: yes
   yum: 
     name:
@@ -11,4 +11,5 @@
       - htop
       - net-tools
       - mlocate
+      - policycoreutils-python
     state: present

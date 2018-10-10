@@ -5,3 +5,29 @@
     name: firewalld
     state: started
     enabled: true
+
+- name: add service http
+  become: yes
+  firewalld:
+    service: http
+    permanent: yes
+    state: enabled
+
+- name: add service https
+  become: yes
+  firewalld: 
+    service: https
+    permanent: yes
+    state: enabled
+    
+- name: reload firewalld
+  become: yes
+  command: firewall-cmd --reload
+
+- name: allow selinux read user content
+  become: yes
+  command: setsebool -P httpd_read_user_content 1
+
+- name: allow selinux read homedir
+  become: yes
+  command: setsebool -P httpd_enable_homedirs 1

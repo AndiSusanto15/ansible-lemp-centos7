@@ -1,0 +1,6 @@
+---
+user_php_fpm: vagrant # nama pool php-fpm
+
+# nginx variable
+home_user: vagrant # direktori untuk create public_html
+count_worker_processes: auto # variable on jinja template | jumlah tread memori

@@ -1,9 +1,9 @@
 ---
-- name: be sure IUS installed
+- name: be sure IUS repo installed
   yum:
     name: https://centos7.iuscommunity.org/ius-release.rpm
 
-- name: Install PHP-Package
+- name: Install Common PHP-Packages
   become: yes
   yum:
     name:
@@ -23,7 +23,7 @@
 
 - name: Copy vagrant.conf file
   become: yes
-  template: src=vagrant.conf.j2 dest=/etc/php-fpm.d/vagrant.conf
+  template: src=hokage.conf.j2 dest=/etc/php-fpm.d/hokage.conf
 
 - name: Automatic load when boot
   become: yes
@@ -31,4 +31,4 @@
 
 - name: Be sure php-fpm is running and enable
   become: yes
-  command: systemctl restart php-fpm.service
+  systemd: name=php-fpm state=reloaded enabled=yes

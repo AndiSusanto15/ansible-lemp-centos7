@@ -6,6 +6,5 @@
   roles:
     - common
     - firewalld
-    - nginx
     - php-fpm-71
-    - percona
+    - nginx
