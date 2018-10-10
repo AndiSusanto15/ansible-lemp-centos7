@@ -1,0 +1,2 @@
+[vagrant]
+10.0.1.10 ansible_user=vagrant

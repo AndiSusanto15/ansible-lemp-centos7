@@ -1,0 +1,14 @@
+---
+- name: Be sure common package is installed
+  become: yes
+  yum: 
+    name:
+      - epel-release
+      - vim
+      - wget
+      - curl
+      - git
+      - htop
+      - net-tools
+      - mlocate
+    state: present

@@ -1,0 +1,33 @@
+[vagrant]
+
+listen = /var/run/phpfpm-vagrant.sock
+listen.backlog = 65535
+listen.allowed_clients = 127.0.0.1
+
+listen.owner = vagrant
+listen.group = vagrant
+listen.mode = 0666
+user = vagrant
+group = vagrant
+pm = dynamic
+pm.max_children = 35
+pm.start_servers = 2
+pm.min_spare_servers = 1
+pm.max_spare_servers = 10
+pm.max_requests = 100
+
+request_terminate_timeout = 2m
+request_slowlog_timeout = 5s
+slowlog = /var/log/php-fpm/vagrant-slow.log
+rlimit_core = 1
+catch_workers_output = yes
+security.limit_extensions = .php
+
+php_flag[display_errors] = off
+php_admin_value[error_log] = /var/log/php-fpm/vagrant-error.log
+php_admin_flag[log_errors] = on
+php_admin_value[memory_limit] = 256M
+
+; Set session path to a directory owned by process user
+php_value[session.save_handler] = files
+php_value[session.save_path] = /var/lib/php/session/vagrant

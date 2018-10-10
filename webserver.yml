@@ -1,0 +1,11 @@
+# ini playbook untuk install webserver
+---
+- hosts: vagrant
+  # vars_files:
+  #   - ./vars/passwd.yml
+  roles:
+    - common
+    - firewalld
+    - nginx
+    - php-fpm-71
+    - percona

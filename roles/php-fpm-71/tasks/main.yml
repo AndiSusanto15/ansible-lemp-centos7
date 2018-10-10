@@ -1,0 +1,34 @@
+---
+- name: be sure IUS installed
+  yum:
+    name: https://centos7.iuscommunity.org/ius-release.rpm
+
+- name: Install PHP-Package
+  become: yes
+  yum:
+    name:
+      - php71u-fpm
+      - php71u-common
+      - php71u-devel
+      - php71u-cli
+      - php71u-pdo
+      - php71u-gd
+      - php71u-xml
+      - php71u-mbstring
+      - php71u-mcrypt
+      - php71u-mysqlnd
+      - php71u-igbinary
+      - php71u-bcmath
+      - php71u-opcache
+
+- name: Copy vagrant.conf file
+  become: yes
+  template: src=vagrant.conf.j2 dest=/etc/php-fpm.d/vagrant.conf
+
+- name: Automatic load when boot
+  become: yes
+  command: systemctl enable php-fpm.service
+
+- name: Be sure php-fpm is running and enable
+  become: yes
+  command: systemctl restart php-fpm.service
