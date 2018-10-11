@@ -4,7 +4,7 @@ server {
     root         /home/{{home_user}}/public_html/mysite.com;
 
     error_log   /var/log/nginx/mysite.com-error.log;
-    access_log  /var/log/nginx/mysite.com-access.log mysite;
+    access_log  /var/log/nginx/mysite.com-access.log mylog;
     # Load configuration files for the default server block.
     include      /etc/nginx/default.d/*.conf;
 
