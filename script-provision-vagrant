@@ -1,0 +1,9 @@
+    a.vm.provision "ansible" do |ansible|
+      ansible.playbook = "webserver.yml"
+      ansible.inventory_path = "hosts"
+      ansible.verbose = true
+      ansible.become = true
+      ansible.limit = "all"
+    end
+
+dont forget to create hosts inventory and adjust playbook hosts
