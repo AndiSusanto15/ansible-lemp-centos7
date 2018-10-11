@@ -17,6 +17,11 @@
     path: /home/{{ home_user }}/public_html/mysite.com
     state: directory
 
+- name: copy sample infophp index
+  template:
+    src: php-info.php.j2
+    dest: /home/{{ home_user }}/public_html/mysite.com/index.php
+
 - name: Create directory sites-available
   become: yes
   file:
@@ -44,6 +49,13 @@
   template: 
     src: mysite.conf.j2
     dest: /etc/nginx/sites-available/mysite.conf
+
+- name: Symlink to sites-enabled
+  become: yes
+  file:
+    src: /etc/nginx/sites-available/mysite.conf
+    dest: /etc/nginx/sites-enabled/mysite.conf
+    state: link
 
 - name: copy upstream conf
   become: yes

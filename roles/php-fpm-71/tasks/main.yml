@@ -21,11 +21,21 @@
       - php71u-bcmath
       - php71u-opcache
 
-- name: Copy vagrant.conf file
+- name: disable pool www.conf
+  become: yes
+  command: mv /etc/php-fpm.d/www.conf /etc/php-fpm.d/www.conf.dead
+  
+- name: Copy php.ini
+  become: yes
+  template:
+    src: php.ini.j2
+    dest: /etc/php.ini
+
+- name: Copy new pool php-fpm
   become: yes
   template: src=hokage.conf.j2 dest=/etc/php-fpm.d/hokage.conf
 
-- name: Automatic load when boot
+- name: Automatic load on boot
   become: yes
   command: systemctl enable php-fpm.service
 

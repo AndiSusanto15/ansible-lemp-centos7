@@ -1,2 +1,2 @@
-[vagrant]
-10.0.1.10 ansible_user=vagrant # just for real server | ansible_become_pass='{{ sudo_password }}'
+[sakura]
+192.168.100.83 ansible_user=vagrant
