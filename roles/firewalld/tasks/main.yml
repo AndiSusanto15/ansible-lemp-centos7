@@ -26,8 +26,15 @@
 
 - name: allow selinux read user content
   become: yes
-  command: setsebool -P httpd_read_user_content 1
+  seboolean:
+    name: httpd_read_user_content
+    state: yes
+    persistent: yes
 
 - name: allow selinux read homedir
   become: yes
-  command: setsebool -P httpd_enable_homedirs 1
+  seboolean:
+    name: httpd_enable_homedirs
+    state: yes
+    persistent: yes
+    
