@@ -1,6 +1,6 @@
 # ini playbook untuk install webserver
 ---
-- hosts: vagrant
+- hosts: all
   # vars_files:
   #   - ./vars/passwd.yml
   roles:

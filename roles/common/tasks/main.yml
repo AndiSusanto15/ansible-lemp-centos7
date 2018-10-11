@@ -1,9 +1,16 @@
 ---
+- name: Install epel repo
+  become: yes
+  yum:
+    name: epel-release
+    state: present
+  notify:
+    - update repo
+    
 - name: Be sure common packages is installed
   become: yes
   yum: 
     name:
-      - epel-release
       - vim
       - wget
       - curl
@@ -13,3 +20,9 @@
       - mlocate
       - policycoreutils-python
     state: present
+
+- name: upgrade all packages
+  become: yes
+  yum:
+    name: '*'
+    state: latest
