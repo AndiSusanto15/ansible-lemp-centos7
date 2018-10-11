@@ -16,11 +16,15 @@
   file:
     path: /home/{{ home_user }}/public_html/mysite.com
     state: directory
+    owner: vagrant
+    group: vagrant
 
 - name: copy sample infophp index
   template:
     src: php-info.php.j2
     dest: /home/{{ home_user }}/public_html/mysite.com/index.php
+    owner: vagrant
+    group: vagrant
 
 - name: Create directory sites-available
   become: yes
